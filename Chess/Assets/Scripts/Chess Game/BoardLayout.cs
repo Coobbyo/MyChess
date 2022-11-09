@@ -15,7 +15,13 @@ public class BoardLayout : ScriptableObject
         public TeamColor teamColor;
     }
 
+    [SerializeField] private TeamColor startingPlayer;
     [SerializeField] private BoardSquareSetup[] boardSquares;
+
+    public TeamColor GetStartingPlayer()
+    {
+        return startingPlayer;
+    }
 
     public int GetPiecesCount()
     {

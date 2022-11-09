@@ -41,7 +41,7 @@ public class ChessGameController : MonoBehaviour
 	{
 		board.SetDependencies(this);
 		CreatePiecesFromLayout(startingBoardLayout);
-		activePlayer = whitePlayer;
+		activePlayer = startingBoardLayout.GetStartingPlayer() == TeamColor.White ? whitePlayer : blackPlayer;
 		GenerateAllPossiblePlayerMoves(activePlayer);
 	}
 

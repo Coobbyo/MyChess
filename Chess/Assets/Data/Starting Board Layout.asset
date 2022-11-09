@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ddd67a8ef503648a58a685c8add882, type: 3}
   m_Name: Starting Board Layout
   m_EditorClassIdentifier: 
+  startingPlayer: 0
   boardSquares:
   - position: {x: 1, y: 1}
     pieceType: 3
