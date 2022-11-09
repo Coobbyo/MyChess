@@ -27,8 +27,6 @@ public abstract class Piece : MonoBehaviour
 
     public void SetMaterial(Material material)
     {
-        //if(materialSetter == null)
-            //materialSetter = GetComponent<MaterialSetter>();
         materialSetter.SetSingleMaterial(material);
     }
 
@@ -44,7 +42,10 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MovePiece(Vector2Int coords)
     {
-
+        Vector3 targetPosition = board.CalculatePositionFromCoords(coords);
+        occupiedSquare = coords;
+        hasMoved = true;
+        tweener.MoveTo(transform, targetPosition);
     }
 
     protected void TryToAddMove(Vector2Int coords)

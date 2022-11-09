@@ -264,6 +264,9 @@ GameObject:
   - component: {fileID: 118029715}
   - component: {fileID: 118029716}
   - component: {fileID: 118029714}
+  - component: {fileID: 118029718}
+  - component: {fileID: 118029717}
+  - component: {fileID: 118029719}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -314,6 +317,45 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.5, y: 0.75, z: 14.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &118029717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118029713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97abedf53928989428b5bf0752b06259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &118029718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118029713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e017ab8f56c4d4e919990d46d24059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &118029719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118029713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a89cc20ecfa5d348bf119ee0845bd52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freeSquareMaterial: {fileID: 2100000, guid: 81a39ce73e21f1942a820ec416a34c28, type: 2}
+  opponentSquareMaterial: {fileID: 2100000, guid: 401e9a53e4f771140b499f49e1085d8b, type: 2}
+  selectorPrefab: {fileID: 6175508974412775573, guid: 558867ff4fb4e97439083f5897482dc5, type: 3}
 --- !u!1 &273614214
 GameObject:
   m_ObjectHideFlags: 0
