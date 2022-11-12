@@ -501,12 +501,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   piecesPrefabs:
-  - {fileID: 190264, guid: d84c6cfeae39c8b4eb1546cee5aa72a8, type: 3}
-  - {fileID: 119820, guid: df33b7622c1f9ab41999897373d6701e, type: 3}
-  - {fileID: 107724, guid: 3f4f34ef4308fd4428a4442b94942428, type: 3}
-  - {fileID: 104878, guid: ad44d4da74b850b4cb20427a5c4f688a, type: 3}
-  - {fileID: 103078, guid: aa78847bba8b4cb4d8c2183ff34cf0e7, type: 3}
-  - {fileID: 114028, guid: 9ffe43e61362c18458e85c4a9974216a, type: 3}
+  - {fileID: 190264, guid: 23625405a507e53499450b602b3033ea, type: 3}
+  - {fileID: 119820, guid: b4207d713be968241a621441c746eae4, type: 3}
+  - {fileID: 107724, guid: 8b030be8c7c69b14c96dea498fedfc93, type: 3}
+  - {fileID: 104878, guid: 0cf3bd761b89fd74288db0f0c696f45b, type: 3}
+  - {fileID: 103078, guid: 66cd140ccaa4f154f9fa384dd2536141, type: 3}
+  - {fileID: 114028, guid: fa7e92822e054514682a804de538413d, type: 3}
   blackMaterial: {fileID: 2100000, guid: 4c099ac1755f8054881982a11938748b, type: 2}
   whiteMaterial: {fileID: 2100000, guid: eae1a6b85d7d9c548af14314a7aacb16, type: 2}
 --- !u!4 &520165927

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
 public class MaterialSetter : MonoBehaviour
 {
     private MeshRenderer _meshRenderer;
@@ -11,7 +10,7 @@ public class MaterialSetter : MonoBehaviour
         get
         {
             if(_meshRenderer == null)
-                _meshRenderer = GetComponent<MeshRenderer>();
+                _meshRenderer = GetComponentInChildren<MeshRenderer>();
             return _meshRenderer;
         }
     }
