@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PieceCreator : MonoBehaviour
 {
-    [SerializeField] private GameObject[] piecesPrefabs;
+    [SerializeField] private ChessSet piecesSet;
     [SerializeField] private Material blackMaterial;
     [SerializeField] private Material whiteMaterial;
 
@@ -14,7 +14,7 @@ public class PieceCreator : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var piece in piecesPrefabs)
+        foreach (var piece in piecesSet.GetPieces())
         {
             nameToPieceDict.Add(piece.GetComponent<Piece>().GetType().ToString(), piece);
         }

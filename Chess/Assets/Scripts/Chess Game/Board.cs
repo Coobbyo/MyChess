@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,13 +73,18 @@ public class Board : MonoBehaviour
 		}
 	}
 
-	//Allow player to select piece and offer suggestion
-	//TODO: Promoting doesn't seem to trigger the king being in check
-	public void PromotePiece(Piece piece)
+	//TODO: Allow player to select piece 
+	public void PromotePiece(Piece piece, Type promotionType = null)
 	{
-		Debug.Log("Promoting");
+		promotionType = typeof(Queen); //Placeholder untill I figureout something better
+		if(promotionType == null)
+		{
+			chessController.GetPromotion(piece);
+			return;
+		}
+
 		TakePiece(piece);
-		chessController.CreatePieceAndInitialize(piece.occupiedSquare, piece.team, typeof(Queen));
+		chessController.CreatePieceAndInitialize(piece.occupiedSquare, piece.team, promotionType);
 	}
 
 	private void SelectPiece(Piece piece)
@@ -135,7 +141,6 @@ public class Board : MonoBehaviour
 
 	private void EndTurn()
 	{
-		Debug.Log("Ending Turn");
 		chessController.EndTurn();
 	}
 

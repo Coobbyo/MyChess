@@ -13,6 +13,7 @@ public class ChessGameController : MonoBehaviour
 	[SerializeField] private Board board;
 	[SerializeField] private ChessUIManager uiManager;
 
+	private Camera cam;
 	private PieceCreator pieceCreator;
 	private ChessPlayer whitePlayer;
 	private ChessPlayer blackPlayer;
@@ -28,6 +29,7 @@ public class ChessGameController : MonoBehaviour
 
 	private void SetDependencies()
 	{
+		cam = Camera.main;
 		pieceCreator = GetComponent<PieceCreator>();
 	}
 
@@ -103,6 +105,15 @@ public class ChessGameController : MonoBehaviour
 
 		ChessPlayer currentPlayer = team == TeamColor.White ? whitePlayer : blackPlayer;
 		currentPlayer.AddPiece(newPiece);
+
+		float rotation = team == TeamColor.White ? 0 : 180;
+		newPiece.transform.rotation = Quaternion.Euler(0, rotation, 0);
+	}
+
+	public Type GetPromotion(Piece piece)
+	{
+		uiManager.Promote(piece);
+		return null;
 	}
 
 	private void GenerateAllPossiblePlayerMoves(ChessPlayer player)
@@ -125,25 +136,18 @@ public class ChessGameController : MonoBehaviour
 			ChangeActiveTeam();
 	}
 
-	//TODO: Promoting seems to not trigger a check mate?
-	//TODO: Check for a stalemate (total possible moves == 0 and neither king is in check)
 	private bool CheckIfGameIsFinished()
 	{
-		Debug.Log("Checking for End");
-		Piece[] kingAttackingPieces = activePlayer.GetPiecesAttackingOppositePieceOfType<King>();
-		if(kingAttackingPieces.Length > 0)
-		{
-			ChessPlayer oppositePlayer = GetOpponentToPlayer(activePlayer);
-			Piece attackedKing = oppositePlayer.GetPieceOfType<King>().FirstOrDefault();
-			oppositePlayer.RemoveMovesEnablingAttackOnPiece<King>(activePlayer, attackedKing);
+		ChessPlayer oppositePlayer = GetOpponentToPlayer(activePlayer);
+		Piece attackedKing = oppositePlayer.GetPieceOfType<King>().FirstOrDefault();
+		oppositePlayer.RemoveMovesEnablingAttackOnPiece<King>(activePlayer, attackedKing);
 
-			int availableKingMoves = attackedKing.availableMoves.Count;
-			if(availableKingMoves == 0)
-			{
-				bool canCoverKing = oppositePlayer.CanHidePiecefromAttack<King>(activePlayer);
-				if(!canCoverKing)
-					return true;
-			}
+		int availableKingMoves = attackedKing.availableMoves.Count;
+		if(availableKingMoves == 0)
+		{
+			bool canCoverKing = oppositePlayer.CanHidePiecefromAttack<King>(activePlayer);
+			if(!canCoverKing)
+				return true;
 		}
 
 		return false;
@@ -158,13 +162,23 @@ public class ChessGameController : MonoBehaviour
 
 	private void EndGame()
 	{
-		uiManager.OnGameFinished(activePlayer.team.ToString());
+		Piece[] kingAttackingPieces = activePlayer.GetPiecesAttackingOppositePieceOfType<King>();
+		if(kingAttackingPieces.Length > 0)
+			uiManager.OnGameFinished(activePlayer.team.ToString());
+		else
+			uiManager.OnGameFinished();
 		SetGameState(GameState.Finished);
 	}
 
 	private void ChangeActiveTeam()
 	{
 		activePlayer = GetOpponentToPlayer(activePlayer);
+
+		cam.transform.Rotate(90, 180, 0); //I don't know why it makes me rotate this 90 on the x
+		Vector3 newPosition = cam.transform.position;
+		newPosition.z = -cam.transform.position.z;
+		cam.transform.position = newPosition;
+
 	}
 
 	private ChessPlayer GetOpponentToPlayer(ChessPlayer player)
