@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class ChessPlayer
             activePieces.Add(piece);
     }
 
-    public void removePiece(Piece piece)
+    public void RemovePiece(Piece piece)
     {
         if(activePieces.Contains(piece))
             activePieces.Remove(piece);
@@ -34,5 +35,70 @@ public class ChessPlayer
             if(board.HasPiece(piece))
                 piece.SelectAvailableSquares();
         }
+    }
+
+    public Piece[] GetPiecesAttackingOppositePieceOfType<T>() where T : Piece
+    {
+        return activePieces.Where(p => p.IsAttackingPieceOfType<T>()).ToArray();
+    }
+
+    public Piece[] GetPieceOfType<T>() where T : Piece
+    {
+        return activePieces.Where(p => p is T).ToArray();
+    }
+
+    public void RemoveMovesEnablingAttackOnPiece<T>(ChessPlayer opponent, Piece selectedPiece) where T : Piece
+    {
+        List<Vector2Int> coordsToRemove = new List<Vector2Int>();
+        foreach (var coords in selectedPiece.availableMoves)
+        {
+            Piece pieceOnSquare = board.GetPieceOnSquare(coords);
+            board.UpdateBoardOnPieceMove(coords, selectedPiece.occupiedSquare, selectedPiece, null);
+            opponent.GenerateAllPossibleMoves();
+            if(opponent.CheckIfIsAttackingPiece<T>())
+                coordsToRemove.Add(coords);
+            board.UpdateBoardOnPieceMove(selectedPiece.occupiedSquare, coords, selectedPiece, pieceOnSquare);
+        }
+        foreach (var coords in coordsToRemove)
+        {
+            selectedPiece.availableMoves.Remove(coords);
+        }
+    }
+
+    public void OnGameRestarted()
+    {
+        activePieces.Clear();
+    }
+
+    private bool CheckIfIsAttackingPiece<T>() where T : Piece
+    {
+        foreach (var piece in activePieces)
+        {
+            if(board.HasPiece(piece) && piece.IsAttackingPieceOfType<T>())
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool CanHidePiecefromAttack<T>(ChessPlayer opponent) where T : Piece
+    {
+        foreach (var piece in activePieces)
+        {
+            foreach (var coords in piece.availableMoves)
+            {
+                Piece pieceOnCoords = board.GetPieceOnSquare(coords);
+                board.UpdateBoardOnPieceMove(coords, piece.occupiedSquare, piece, null);
+                opponent.GenerateAllPossibleMoves();
+                if(!opponent.CheckIfIsAttackingPiece<T>())
+                {
+                    board.UpdateBoardOnPieceMove(piece.occupiedSquare, coords, piece, pieceOnCoords);
+                    return true;
+                }
+                board.UpdateBoardOnPieceMove(piece.occupiedSquare, coords, piece, pieceOnCoords);
+            }
+        }
+
+        return false;
     }
 }

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InputReciever : MonoBehaviour
+public abstract class InputReceiver : MonoBehaviour
 {
     protected IInputHandler[] inputHandlers;
 
-    public abstract void OnInputRecieved();
+    public abstract void OnInputReceived();
 
     private void Awake()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rook : Piece
 {
-	private Vector2Int[] directions = new Vector2Int[] { Vector2Int.left, -Vector2Int.up, Vector2Int.right, Vector2Int.down };
+	private Vector2Int[] directions = new Vector2Int[] { Vector2Int.left, Vector2Int.up, Vector2Int.right, Vector2Int.down };
 
 	public override List<Vector2Int> SelectAvailableSquares()
 	{

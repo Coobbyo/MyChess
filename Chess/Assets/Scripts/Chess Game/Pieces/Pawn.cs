@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
+	//TODO: Add en passant???
 	public override List<Vector2Int> SelectAvailableSquares()
 	{
 		availableMoves.Clear();
@@ -27,11 +28,24 @@ public class Pawn : Piece
 			Vector2Int nextCoords = occupiedSquare + takeDirections[i];
 			Piece piece = board.GetPieceOnSquare(nextCoords);
 			if(!board.CheckIfCoordinatesAreOnBoard(nextCoords))
-				break;
+				continue;
 			if(piece != null && !piece.IsFromSameTeam(this))
 				TryToAddMove(nextCoords);
 		}
 
         return availableMoves;
+	}
+
+	public override void MovePiece(Vector2Int coords)
+	{
+		base.MovePiece(coords);
+		CheckPromotion();
+	}
+
+	private void CheckPromotion()
+	{
+		int endOfBoardYCoord = team == TeamColor.White ? Board.BOARD_SIZE - 1 : 0;
+		if(occupiedSquare.y == endOfBoardYCoord)
+			board.PromotePiece(this);
 	}
 }
