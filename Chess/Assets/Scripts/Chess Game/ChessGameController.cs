@@ -50,7 +50,7 @@ public class ChessGameController : MonoBehaviour
 		SetGameState(GameState.Init);
 		board.SetDependencies(this);
 		CreatePiecesFromLayout(startingBoardLayout);
-		activePlayer = whitePlayer; //(startingBoardLayout.GetStartingPlayer() == TeamColor.White) ? whitePlayer : blackPlayer;
+		activePlayer = (startingBoardLayout.GetStartingPlayer() == TeamColor.White) ? whitePlayer : blackPlayer;
 		GenerateAllPossiblePlayerMoves(activePlayer);
 		SetGameState(GameState.Play);
 	}
